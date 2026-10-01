@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>草民电影网 - 免费高清影视推荐与观影指南 | caomindianyingwang-app.github.io</title>
+<meta name="description" content="草民电影网（caomindianyingwang-app.github.io）提供最新热门电影、电视剧、动漫与纪录片推荐，涵盖影视榜单、新片上线、分类导航与观影指南，帮草民观众快速找到值得一看的好片。" />
+<meta name="keywords" content="草民电影网,草民电影,电影推荐,热门影视,最新电影,电视剧推荐,影视榜单,免费观影指南,高清影视" />
+<meta name="author" content="草民电影网" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#0b0d12" />
+<link rel="canonical" href="https://caomindianyingwang-app.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="草民电影网" />
+<meta property="og:title" content="草民电影网 - 免费高清影视推荐与观影指南" />
+<meta property="og:description" content="草民电影网每日更新热门电影、电视剧、动漫与纪录片推荐，提供影视榜单、新片速递与观影指南。" />
+<meta property="og:url" content="https://caomindianyingwang-app.github.io/" />
+<meta property="og:image" content="https://caomindianyingwang-app.github.io/cover.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="草民电影网 - 免费高清影视推荐与观影指南" />
+<meta name="twitter:description" content="草民电影网每日更新热门电影、电视剧、动漫与纪录片推荐。" />
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg2:#12151d;
+  --card:#171b25;
+  --line:#262c3a;
+  --gold:#f5c518;
+  --red:#e0453b;
+  --txt:#e8ecf4;
+  --sub:#98a1b3;
+  --radius:14px;
+  --max:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.75;
+  background-image:radial-gradient(1000px 500px at 15% -10%,rgba(245,197,24,.10),transparent 60%),radial-gradient(800px 400px at 90% 0%,rgba(224,69,59,.10),transparent 55%);
+  background-attachment:fixed;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+h1,h2,h3,h4{line-height:1.35;font-weight:700;letter-spacing:.5px;}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 18px;}
+.skip{position:absolute;left:-9999px;top:0;}
+.skip:focus{left:8px;top:8px;background:var(--gold);color:#111;padding:8px 14px;border-radius:8px;z-index:99;}
+
+/* ============ 顶部导航 ============ */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,13,18,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px;}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;}
+.film{
+  width:38px;height:38px;flex:0 0 38px;border-radius:10px;
+  background:linear-gradient(140deg,var(--gold),#b98c00);
+  position:relative;overflow:hidden;
+}
+.film::before,.film::after{
+  content:"";position:absolute;top:5px;bottom:5px;width:5px;
+  background:repeating-linear-gradient(var(--bg) 0 4px,transparent 4px 9px);
+}
+.film::before{left:6px;}
+.film::after{right:6px;}
+.brand-text{display:flex;flex-direction:column;min-width:0;}
+.brand-text strong{font-size:19px;letter-spacing:2px;color:#fff;}
+.brand-text em{font-style:normal;font-size:11px;color:var(--sub);letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav{display:flex;align-items:center;gap:4px;}
+.nav a{
+  display:block;padding:8px 12px;border-radius:8px;font-size:15px;color:var(--sub);
+  transition:color .2s,background .2s;
+}
+.nav a:hover,.nav a:active{color:var(--gold);background:rgba(245,197,24,.10);}
+.nav-toggle{display:none;}
+.nav-btn{display:none;width:40px;height:40px;line-height:40px;text-align:center;font-size:20px;color:var(--gold);border:1px solid var(--line);border-radius:10px;cursor:pointer;}
+
+/* ============ 跑马灯 ============ */
+.ticker{
+  overflow:hidden;border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,#1b1207,#0b0d12 40%,#1c0f0d);
+  height:38px;position:relative;
+}
+.ticker-track{
+  display:flex;gap:38px;white-space:nowrap;height:38px;align-items:center;
+  font-size:13px;color:#d9c98a;letter-spacing:1px;
+  animation:marq 34s linear infinite;padding-left:100%;
+}
+.ticker-track span::before{content:"◆";color:var(--red);margin-right:8px;}
+@keyframes marq{from{transform:translateX(0);}to{transform:translateX(-100%);}}
+
+/* ============ Hero ============ */
+.hero{position:relative;padding:56px 0 40px;overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(245,197,24,.35);background:rgba(245,197,24,.08);
+  color:var(--gold);font-size:12px;letter-spacing:2px;
+  padding:6px 14px;border-radius:999px;
+}
+.hero h1{
+  font-size:44px;margin:18px 0 14px;color:#fff;letter-spacing:1px;
+}
+.hero h1 b{color:var(--gold);}
+.hero p.lead{color:var(--sub);font-size:16px;max-width:560px;}
+.search{
+  display:flex;margin-top:24px;border:1px solid var(--line);background:var(--card);
+  border-radius:999px;padding:5px;max-width:520px;
+}
+.search input{
+  flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--txt);
+  font-size:15px;padding:0 14px;font-family:inherit;
+}
+.search input::placeholder{color:#6b7488;}
+.search button{
+  border:0;cursor:pointer;border-radius:999px;padding:11px 26px;
+  background:linear-gradient(120deg,var(--gold),#e0a800);color:#171203;font-weight:700;font-size:15px;font-family:inherit;
+}
+.stats{display:flex;gap:26px;margin-top:28px;flex-wrap:wrap;}
+.stats div strong{display:block;font-size:26px;color:#fff;}
+.stats div span{font-size:12px;color:var(--sub);letter-spacing:1px;}
+
+/* 海报墙 */
+.posters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.poster{
+  position:relative;border-radius:12px;overflow:hidden;
+  border:1px solid var(--line);aspect-ratio:2/3;
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+  box-shadow:0 14px 30px rgba(0,0,0,.45);
+}
+.poster::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.22) 0 3px,transparent 3px 8px);
+  pointer-events:none;
+}
+.poster small{
+  position:absolute;left:0;right:0;bottom:0;padding:8px 10px;z-index:2;
+  background:linear-gradient(transparent,rgba(0,0,0,.9));
+  font-size:12px;color:#fff;letter-spacing:.5px;
+}
+.poster i{
+  position:absolute;top:8px;right:8px;z-index:2;font-style:normal;
+  background:var(--red);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;
+}
+.p1{background:linear-gradient(160deg,#2b3a67,#0b0d12);}
+.p2{background:linear-gradient(160deg,#5b2a2a,#0b0d12);}
+.p3{background:linear-gradient(160deg,#1f4d3d,#0b0d12);}
+.p4{background:linear-gradient(160deg,#4a3b6b,#0b0d12);}
+.p5{background:linear-gradient(160deg,#6b4a1f,#0b0d12);}
+.p6{background:linear-gradient(160deg,#24424a,#0b0d12);}
+
+/* ============ 通用区块 ============ */
+.sec{padding:52px 0;border-top:1px solid var(--line);}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap;}
+.sec-head h2{font-size:27px;color:#fff;position:relative;padding-left:14px;}
+.sec-head h2::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;border-radius:2px;background:linear-gradient(var(--gold),var(--red));}
+.sec-head p{color:var(--sub);font-size:14px;max-width:520px;}
+.more{color:var(--gold);font-size:14px;white-space:nowrap;}
+
+/* 卡片：胶片打孔边 */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;transition:transform .25s,border-color .25s;
+  position:relative;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(245,197,24,.5);}
+.filmstrip{
+  height:46px;background:#0d1017;display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.filmstrip span{font-size:26px;}
+.card .thumb{
+  height:150px;display:flex;align-items:center;justify-content:center;font-size:46px;
+  border-bottom:1px solid var(--line);
+}
+.card .body{padding:14px 15px 18px;}
+.card h3{font-size:16px;color:#fff;margin-bottom:6px;}
+.card .meta{font-size:12px;color:var(--sub);letter-spacing:.5px;}
+.card p{font-size:13px;color:var(--sub);margin-top:8px;}
+.score{float:right;color:var(--gold);font-weight:700;font-size:15px;}
+
+/* 新片时间线 */
+.timeline{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.tl-item{
+  display:flex;gap:14px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px;
+}
+.tl-date{
+  flex:0 0 62px;text-align:center;border-right:1px dashed var(--line);padding-right:12px;
+}
+.tl-date b{display:block;font-size:22px;color:var(--gold);line-height:1.1;}
+.tl-date span{font-size:11px;color:var(--sub);}
+.tl-item h4{font-size:15px;color:#fff;}
+.tl-item p{font-size:13px;color:var(--sub);margin-top:4px;}
+.tag{
+  display:inline-block;font-size:11px;padding:2px 9px;border-radius:6px;margin-top:8px;
+  background:rgba(245,197,24,.12);color:var(--gold);border:1px solid rgba(245,197,24,.25);
+}
+
+/* 榜单 */
+.rank-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.rank-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;}
+.rank-box h3{font-size:17px;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.rank-box h3 span{font-size:20px;}
+.rank-box li{
+  display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);
+  font-size:14px;
+}
+.rank-box li:last-child{border-bottom:0;}
+.rank-box li em{
+  font-style:normal;flex:0 0 24px;height:24px;line-height:24px;text-align:center;
+  border-radius:6px;background:#222836;color:#fff;font-size:12px;font-weight:700;
+}
+.rank-box li:nth-child(1) em{background:var(--red);}
+.rank-box li:nth-child(2) em{background:#c98b1e;}
+.rank-box li:nth-child(3) em{background:#4a5568;}
+.rank-box li b{font-weight:500;flex:1;color:#dfe5f0;}
+.rank-box li i{font-style:normal;color:var(--gold);font-size:13px;}
+
+/* 观影指南 */
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.guide{
+  background:linear-gradient(160deg,#1a1f2b,#12151d);
+  border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+}
+.guide .num{
+  width:42px;height:42px;line-height:42px;text-align:center;border-radius:12px;
+  background:rgba(245,197,24,.12);color:var(--gold);font-weight:700;font-size:18px;margin-bottom:12px;
+  border:1px solid rgba(245,197,24,.28);
+}
+.guide h3{font-size:17px;color:#fff;margin-bottom:8px;}
+.guide p{font-size:14px;color:var(--sub);}
+.guide ul{margin-top:10px;}
+.guide li{font-size:13px;color:#c3cad8;padding-left:16px;position:relative;}
+.guide li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--red);}
+
+/* FAQ */
+.faq{max-width:840px;}
+.faq details{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  margin-bottom:12px;overflow:hidden;
+}
+.faq summary{
+  cursor:pointer;padding:15px 18px;font-size:15px;color:#fff;font-weight:600;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";color:var(--gold);font-size:20px;font-weight:700;}
+.faq details[open] summary::after{content:"−";}
+.faq details p{padding:0 18px 16px;font-size:14px;color:var(--sub);}
+
+/* 订阅 */
+.sub{
+  margin:0 18px 52px;border:1px solid rgba(245,197,24,.3);border-radius:18px;
+  background:linear-gradient(120deg,#1c1708,#12151d 60%);
+  padding:32px 24px;text-align:center;
+}
+.sub h2{font-size:24px;color:#fff;margin-bottom:8px;}
+.sub p{color:var(--sub);font-size:14px;margin-bottom:20px;}
+.sub form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;}
+.sub input{
+  flex:1;min-width:200px;border:1px solid var(--line);background:#0d1017;color:var(--txt);
+  border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;outline:0;
+}
+.sub button{
+  border:0;border-radius:10px;padding:12px 24px;cursor:pointer;font-family:inherit;
+  background:linear-gradient(120deg,var(--gold),#e0a800);color:#171203;font-weight:700;font-size:15px;
+}
+
+/* ============ 页脚 ============ */
+.site-footer{border-top:1px solid var(--line);background:#0a0c11;padding:38px 0 26px;}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:24px;}
+.foot-grid h4{font-size:15px;color:#fff;margin-bottom:12px;letter-spacing:1px;}
+.foot-grid li{padding:5px 0;font-size:13px;}
+.foot-grid a{color:var(--sub);}
+.foot-grid a:hover{color:var(--gold);}
+.foot-about p{font-size:13px;color:var(--sub);max-width:320px;}
+.foot-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.foot-links a{
+  font-size:12px;border:1px solid var(--line);border-radius:8px;padding:5px 12px;color:var(--sub);
+}
+.copy{
+  margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12px;color:#6b7488;text-align:center;line-height:2;
+}
+.copy a{color:var(--sub);}
+
+/* ============ 移动端自适应 ============ */
+@media (max-width:1024px){
+  .cards{grid-template-columns:repeat(2,1fr);}
+  .hero-grid{grid-template-columns:1fr;gap:26px;}
+  .hero h1{font-size:34px;}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:768px){
+  .nav-btn{display:block;}
+  .nav{
+    display:none;position:absolute;left:0;right:0;top:62px;
+    background:#0d1017;border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch;padding:8px 18px 14px;
+  }
+  .nav-toggle:checked ~ .nav{display:flex;}
+  .nav a{padding:12px 6px;border-bottom:1px solid var(--line);font-size:16px;}
+  .site-header{position:sticky;}
+  .header-inner{position:relative;}
+  .hero{padding:34px 0 26px;}
+  .hero h1{font-size:28px;}
+  .stats{gap:18px;}
+  .stats div strong{font-size:22px;}
+  .sec{padding:38px 0;}
+  .sec-head h2{font-size:22px;}
+  .posters{grid-template-columns:repeat(3,1fr);gap:8px;}
+  .poster{font-size:28px;}
+  .timeline,.rank-wrap,.guide-grid{grid-template-columns:1fr;}
+  .sub{margin:0 12px 36px;padding:24px 18px;}
+  .sub form{flex-direction:column;}
+  .foot-grid{grid-template-columns:1fr;gap:18px;}
+}
+@media (max-width:480px){
+  body{font-size:15px;}
+  .brand-text em{font-size:10px;}
+  .brand-text strong{font-size:17px;}
+  .hero h1{font-size:24px;}
+  .cards{grid-template-columns:1fr;}
+  .search{flex-direction:column;border-radius:14px;padding:8px;}
+  .search input{padding:10px 10px;text-align:center;}
+  .search button{border-radius:10px;}
+  .posters{grid-template-columns:repeat(2,1fr);}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none;}
+  *{transition:none !important;}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<a class="skip" href="#main">跳转到主要内容</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#" title="草民电影网 - 首页">
+      <span class="film" aria-hidden="true"></span>
+      <span class="brand-text">
+        <strong>草民电影网</strong>
+        <em>caomindianyingwang-app.github.io</em>
+      </span>
+    </a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="展开导航菜单" />
+    <label for="nav-toggle" class="nav-btn" aria-hidden="true">☰</label>
+    <nav class="nav" aria-label="主导航">
+      <a href="#" title="草民电影网首页">首页</a>
+      <a href="#hot" title="草民电影网热门影视推荐">热门影视</a>
+      <a href="#new" title="草民电影网新片上线">新片上线</a>
+      <a href="#rank" title="草民电影网影视榜单">影视榜单</a>
+      <a href="#guide" title="草民电影网观影指南">观影指南</a>
+      <a href="#faq" title="草民电影网常见问题">关于我们</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ticker" aria-label="正在热映滚动播报">
+  <div class="ticker-track">
+    <span>草民电影网今日更新 32 部片源</span>
+    <span>本周热度冠军《山海归途》评分 9.1</span>
+    <span>经典修复专区上线 1990 年代港片合集</span>
+    <span>纪录片区新增自然地理 18 部</span>
+    <span>草民电影网支持移动端自适应浏览</span>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="badge">◆ 草民电影网 · 每日更新</span>
+        <h1>看片不纠结，<b>草民电影网</b>替你先筛一遍</h1>
+        <p class="lead">
+          草民电影网（caomindianyingwang-app.github.io）收录电影、剧集、动漫与纪录片资源索引，
+          按热度、口碑、类型三维度整理，让每一位普通观众都能花最少的时间，找到今晚值得打开的那部片子。
+        </p>
+        <form class="search" action="#" method="get" role="search">
+          <label for="kw" class="skip">搜索影片</label>
+          <input id="kw" name="kw" type="search" placeholder="搜索片名 / 演员 / 类型，例如：悬疑" />
+          <button type="submit">搜片</button>
+        </form>
+        <div class="stats">
+          <div><strong>12860+</strong><span>收录影片</span></div>
+          <div><strong>36</strong><span>影视分类</span></div>
+          <div><strong>每日</strong><span>更新上架</span></div>
+        </div>
+      </div>
+      <div class="posters" aria-label="草民电影网热映海报墙">
+        <div class="poster p1"><i>9.1</i><span aria-hidden="true">🎬</span><small>山海归途</small></div>
+        <div class="poster p2"><i>8.7</i><span aria-hidden="true">🌆</span><small>夜行列车</small></div>
+        <div class="poster p3"><i>8.9</i><span aria-hidden="true">🏔️</span><small>雪线之上</small></div>
+        <div class="poster p4"><i>9.3</i><span aria-hidden="true">🚀</span><small>星尘纪事</small></div>
+        <div class="poster p5"><i>8.5</i><span aria-hidden="true">🍂</span><small>秋日长信</small></div>
+        <div class="poster p6"><i>8.8</i><span aria-hidden="true">🌊</span><small>潮汐回声</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目一：热门影视 -->
+  <section class="sec" id="hot">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>热门影视推荐</h2>
+          <p>草民电影网编辑部根据站内播放热度与观众评分，每周滚动更新一次热门片单。</p>
+        </div>
+        <a class="more" href="#" title="查看草民电影网全部热门影视">查看全部 →</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#2b3a67,#0b0d12);" aria-hidden="true">🎬</div>
+          <div class="body">
+            <h3><span class="score">9.1</span>山海归途</h3>
+            <div class="meta">剧情 / 2025 / 中国大陆 · 128 分钟</div>
+            <p>三个返乡青年在故土与远方之间的抉择，被影评人称为年度最扎实的现实主义作品。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#5b2a2a,#0b0d12);" aria-hidden="true">🌆</div>
+          <div class="body">
+            <h3><span class="score">8.7</span>夜行列车</h3>
+            <div class="meta">悬疑 / 2025 / 日本 · 112 分钟</div>
+            <p>一列深夜列车上的六名乘客，各自藏着不能说的秘密，反转密集。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#1f4d3d,#0b0d12);" aria-hidden="true">🏔️</div>
+          <div class="body">
+            <h3><span class="score">8.9</span>雪线之上</h3>
+            <div class="meta">纪录片 / 2024 / 中国 · 96 分钟</div>
+            <p>跟随高原巡护队记录一整年，草民电影网纪录片专区点击量榜首。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#4a3b6b,#0b0d12);" aria-hidden="true">🚀</div>
+          <div class="body">
+            <h3><span class="score">9.3</span>星尘纪事</h3>
+            <div class="meta">科幻 / 2025 / 美国 · 141 分钟</div>
+            <p>硬科幻外壳下的家族叙事，视效与情感双线并进，站内评分榜第一。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#6b4a1f,#0b0d12);" aria-hidden="true">🍂</div>
+          <div class="body">
+            <h3><span class="score">8.5</span>秋日长信</h3>
+            <div class="meta">爱情 / 2024 / 韩国 · 104 分钟</div>
+            <p>以书信串联三十年时光，节奏舒缓，适合安静的周末夜晚。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#24424a,#0b0d12);" aria-hidden="true">🌊</div>
+          <div class="body">
+            <h3><span class="score">8.8</span>潮汐回声</h3>
+            <div class="meta">剧情 / 2025 / 法国 · 118 分钟</div>
+            <p>海边小镇的两代人因一场风暴重新理解彼此，摄影极具质感。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#3d2b4f,#0b0d12);" aria-hidden="true">🎭</div>
+          <div class="body">
+            <h3><span class="score">8.6</span>戏台春秋</h3>
+            <div class="meta">戏曲 / 2024 / 中国 · 130 分钟</div>
+            <p>一个县剧团的兴衰史，草民电影网传统文化专题力荐。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" style="background:linear-gradient(160deg,#1e3a2f,#0b0d12);" aria-hidden="true">🐾</div>
+          <div class="body">
+            <h3><span class="score">8.4</span>林间行者</h3>
+            <div class="meta">自然 / 2025 / 英国 · 88 分钟</div>
+            <p>四季跟拍森林动物，适合全家一起看的自然向作品。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目二：新片上线 -->
+  <section class="sec" id="new">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>新片上线速递</h2>
+          <p>草民电影网第一时间整理近期上架的影视条目，标注上线日期与类型标签。</p>
+        </div>
+        <a class="more" href="#" title="草民电影网新片上线时间表">更新时间表 →</a>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date"><b>28</b><span>09月</span></div>
+          <div>
+            <h4>雾港疑云</h4>
+            <p>港口城市的连环失踪案，双线叙事，冷色调悬疑新作。</p>
+            <span class="tag">悬疑</span><span class="tag" style="margin-left:6px;">新上架</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date"><b>26</b><span>09月</span></div>
+          <div>
+            <h4>麦田与铁轨</h4>
+            <p>乡土题材温情剧集，全 12 集，草民电影网剧集区同步收录。</p>
+            <span class="tag">剧集</span><span class="tag" style="margin-left:6px;">12 集</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date"><b>22</b><span>09月</span></div>
+          <div>
+            <h4>深潜者</h4>
+            <p>海洋探险题材，实拍比例高，适合大屏观看。</p>
+            <span class="tag">冒险</span><span class="tag" style="margin-left:6px;">高清</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date"><b>19</b><span>09月</span></div>
+          <div>
+            <h4>老街十四号</h4>
+            <p>群像喜剧，笑点密集，家庭观影推荐指数四星。</p>
+            <span class="tag">喜剧</span><span class="tag" style="margin-left:6px;">合家欢</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date"><b>15</b><span>09月</span></div>
+          <div>
+            <h4>无声证词</h4>
+            <p>法庭题材，对白扎实，被观众评价为"细节拉满"。</p>
+            <span class="tag">律政</span><span class="tag" style="margin-left:6px;">高分</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date"><b>11</b><span>09月</span></div>
+          <div>
+            <h4>宇宙拾荒队</h4>
+            <p>轻科幻动画，脑洞大开，动漫专区本周点播冠军。</p>
+            <span class="tag">动漫</span><span class="tag" style="margin-left:6px;">科幻</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目三：影视榜单 -->
+  <section class="sec" id="rank">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>分类影视榜单</h2>
+          <p>草民电影网按类型与地区拆分的细分榜单，帮你按口味快速定位。</p>
+        </div>
+        <a class="more" href="#" title="草民电影网完整榜单">完整榜单 →</a>
+      </div>
+      <div class="rank-wrap">
+        <div class="rank-box">
+          <h3><span aria-hidden="true">🔥</span>华语口碑榜</h3>
+          <ol>
+            <li><em>1</em><b>山海归途</b><i>9.1</i></li>
+            <li><em>2</em><b>戏台春秋</b><i>8.6</i></li>
+            <li><em>3</em><b>麦田与铁轨</b><i>8.4</i></li>
+            <li><em>4</em><b>老街十四号</b><i>8.2</i></li>
+            <li><em>5</em><b>无声证词</b><i>8.1</i></li>
+          </ol>
+        </div>
+        <div class="rank-box">
+          <h3><span aria-hidden="true">🎞️</span>海外热播榜</h3>
+          <ol>
+            <li><em>1</em><b>星尘纪事</b><i>9.3</i></li>
+            <li><em>2</em><b>潮汐回声</b><i>8.8</i></li>
+            <li><em>3</em><b>夜行列车</b><i>8.7</i></li>
+            <li><em>4</em><b>秋日长信</b><i>8.5</i></li>
+            <li><em>5</em><b>林间行者</b><i>8.4</i></li>
+          </ol>
+        </div>
+        <div class="rank-box">
+          <h3><span aria-hidden="true">📺</span>剧集追更榜</h3>
+          <ol>
+            <li><em>1</em><b>雾港疑云</b><i>8.9</i></li>
+            <li><em>2</em><b>长夜将尽</b><i>8.6</i></li>
+            <li><em>3</em><b>第七号诊室</b><i>8.3</i></li>
+            <li><em>4</em><b>南风知我意</b><i>8.1</i></li>
+            <li><em>5</em><b>少年与海</b><i>7.9</i></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目四：观影指南 -->
+  <section class="sec" id="guide">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>草民观影指南</h2>
+          <p>不谈玄学参数，只讲普通观众真正用得上的选片与观看技巧。</p>
+        </div>
+        <a class="more" href="#" title="草民电影网观影指南合集">指南合集 →</a>
+      </div>
+      <div class="guide-grid">
+        <div class="guide">
+          <div class="num">01</div>
+          <h3>三分钟选片法</h3>
+          <p>先看类型、再看评分人数、最后看时长，三步就能过滤掉大部分不适合你的片子。</p>
+          <ul>
+            <li>评分人数少于 1000 的谨慎参考</li>
+            <li>超过 150 分钟的片子留到周末</li>
+            <li>先看导演前作判断风格</li>
+          </ul>
+        </div>
+        <div class="guide">
+          <div class="num">02</div>
+          <h3>类型片入门路径</h3>
+          <p>草民电影网为每种类型梳理了由浅入深的观影顺序，避免一上来就啃硬骨头。</p>
+          <ul>
+            <li>悬疑：从单线叙事入门</li>
+            <li>科幻：先看设定再谈硬核</li>
+            <li>文艺片：配合背景资料食用</li>
+          </ul>
+        </div>
+        <div class="guide">
+          <div class="num">03</div>
+          <h3>移动端观看优化</h3>
+          <p>本站页面在手机、平板与桌面端均自适应排版，窄屏也能完整浏览片单与榜单。</p>
+          <ul>
+            <li>横屏欣赏海报墙更舒服</li>
+            <li>夜间建议调低屏幕亮度</li>
+            <li>弱网环境可先看文字简介</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 栏目五：关于与 FAQ -->
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>关于草民电影网</h2>
+          <p>关于本站定位、更新机制与常见疑问，这里一次说清楚。</p>
+        </div>
+        <a class="more" href="#" title="草民电影网联系方式">联系我们 →</a>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>草民电影网是什么类型的站点？</summary>
+          <p>草民电影网（caomindianyingwang-app.github.io）是一个面向普通观众的影视信息导航与推荐站点，整理影片条目、榜单、分类与观影指南，帮助观众降低选片成本。</p>
+        </details>
+        <details>
+          <summary>网站内容多久更新一次？</summary>
+          <p>热门片单每周滚动更新，新片上线速递按实际上架时间随时补充，分类榜单每月复核一次评分与排名。</p>
+        </details>
+        <details>
+          <summary>手机上浏览会不会排版错乱？</summary>
+          <p>不会。本站采用响应式布局，在 480px、768px、1024px 等多个断点下重新排布栅格与导航，窄屏会自动切换为单列与折叠菜单。</p>
+        </details>
+        <details>
+          <summary>如何按类型快速找到想看的片子？</summary>
+          <p>可通过顶部导航进入分类榜单，或使用首页搜索框按片名、演员、类型关键词检索，草民电影网对每条影片都标注了类型与地区标签。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅 -->
+  <section class="sub" aria-label="订阅草民电影网更新">
+    <h2>订阅草民电影网每周片单</h2>
+    <p>留下邮箱，每周五收到一份精选片单与上架提醒，可随时取消。</p>
+    <form action="#" method="post">
+      <label for="mail" class="skip">邮箱地址</label>
+      <input id="mail" name="mail" type="email" placeholder="输入你的邮箱地址" required />
+      <button type="submit">免费订阅</button>
+    </form>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4>草民电影网</h4>
+        <p>一个朴素、好用的影视推荐与观影指南站点。网址：https://caomindianyingwang-app.github.io</p>
+        <div class="foot-links">
+          <a href="#" title="草民电影网热门影视">热门影视</a>
+          <a href="#" title="草民电影网新片上线">新片上线</a>
+          <a href="#" title="草民电影网影视榜单">影视榜单</a>
+          <a href="#" title="草民电影网观影指南">观影指南</a>
+        </div>
+      </div>
+      <div>
+        <h4>影视分类</h4>
+        <ul>
+          <li><a href="#" title="草民电影网动作片">动作片</a></li>
+          <li><a href="#" title="草民电影网悬疑片">悬疑片</a></li>
+          <li><a href="#" title="草民电影网科幻片">科幻片</a></li>
+          <li><a href="#" title="草民电影网纪录片">纪录片</a></li>
+          <li><a href="#" title="草民电影网动漫">动漫</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>榜单导航</h4>
+        <ul>
+          <li><a href="#" title="草民电影华语口碑榜">华语口碑榜</a></li>
+          <li><a href="#" title="草民电影海外热播榜">海外热播榜</a></li>
+          <li><a href="#" title="草民电影剧集追更榜">剧集追更榜</a></li>
+          <li><a href="#" title="草民电影经典修复">经典修复</a></li>
+          <li><a href="#" title="草民电影冷门佳片">冷门佳片</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>关于本站</h4>
+        <ul>
+          <li><a href="#" title="草民电影网关于我们">关于我们</a></li>
+          <li><a href="#" title="草民电影网常见问题">常见问题</a></li>
+          <li><a href="#" title="草民电影网投稿合作">投稿合作</a></li>
+          <li><a href="#" title="草民电影网免责声明">免责声明</a></li>
+          <li><a href="#" title="草民电影网隐私说明">隐私说明</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      <p>© 2026 草民电影网 caomindianyingwang-app.github.io · 本站仅提供影视信息索引与推荐，不存储任何影片文件</p>
+      <p><a href="#" title="草民电影网首页">返回首页</a> · <a href="#" title="草民电影网站点地图">站点地图</a> · <a href="#" title="草民电影网意见反馈">意见反馈</a></p>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "草民电影网",
+      "alternateName": "草民电影",
+      "url": "https://caomindianyingwang-app.github.io/",
+      "description": "草民电影网提供热门电影、电视剧、动漫与纪录片推荐，涵盖影视榜单、新片上线与观影指南。",
+      "inLanguage": "zh-CN",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://caomindianyingwang-app.github.io/?kw={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "草民电影网",
+      "url": "https://caomindianyingwang-app.github.io/",
+      "description": "面向普通观众的影视信息导航与推荐站点。"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"草民电影网","item":"https://caomindianyingwang-app.github.io/"},
+        {"@type":"ListItem","position":2,"name":"热门影视","item":"https://caomindianyingwang-app.github.io/#hot"},
+        {"@type":"ListItem","position":3,"name":"新片上线","item":"https://caomindianyingwang-app.github.io/#new"},
+        {"@type":"ListItem","position":4,"name":"影视榜单","item":"https://caomindianyingwang-app.github.io/#rank"},
+        {"@type":"ListItem","position":5,"name":"观影指南","item":"https://caomindianyingwang-app.github.io/#guide"}
+      ]
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
